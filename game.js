@@ -3,15 +3,21 @@ window.onload = function() {
 
   var g = new e.Game(window.innerWidth, window.innerHeight);
 
+  g.mediaStorage.add( 'aim',    './assets/aim2.png'             );
+  g.mediaStorage.add( 'filter', './assets/filters/filter_1.png' );
+  g.mediaStorage.add( 'hero',   './assets/hero/hero.png'        );
+  g.mediaStorage.add( 'txt',    './assets/bg_txt/txt0.png'      );
+
+  console.log(g.mediaStorage.get('aim', g.world.length))
+
   g.addCursorGameObject(
     new e.Sprite(
-      './assets/aim2.png',
+      g.mediaStorage.get('aim', g.world.length),
       100, 100, 300, 0, 4, true, false
     )
   );
   g.cursor.rotationByCursor = true;
 
-  
 
   /* Filter */
   g.addObject(
@@ -21,7 +27,7 @@ window.onload = function() {
       function(vector, state, controller) {},
       g.state,
       new e.Sprite(
-        './assets/filters/filter_1.png',
+        g.mediaStorage.get('filter', g.world.length),
         2000, 2000, 300, 0, 0, true, true
       )
     )
@@ -39,7 +45,7 @@ window.onload = function() {
       },
       g.state,
       new e.Sprite(
-        './assets/hero/hero.png',
+        g.mediaStorage.get('hero', g.world.length),
         120, 120, 400, 0, 5, true, false
       ),
       new e.Controller(
@@ -71,7 +77,7 @@ window.onload = function() {
         1,
         10,
         1,
-        g.worldList[0].vector
+        g.world[0].vector
       )
     )
   );
@@ -88,7 +94,7 @@ window.onload = function() {
           },
           g.state,
           new e.Sprite(
-            './assets/bg_txt/txt0.png',
+            g.mediaStorage.get('txt', g.world.length),
             100, 100, 300, 0, 0, true, false
           )
         )
