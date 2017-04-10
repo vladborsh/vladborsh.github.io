@@ -5,15 +5,15 @@ window.onload = function() {
 
   g.mediaStorage.add( 'aim',    './assets/aim2.png'             );
   g.mediaStorage.add( 'filter', './assets/filters/filter_1.png' );
-  g.mediaStorage.add( 'hero',   './assets/hero/hero.png'        );
+  g.mediaStorage.add( 'hero1',   './assets/hero/1.png'          );
+  g.mediaStorage.add( 'hero2',   './assets/hero/2.png'          );
   g.mediaStorage.add( 'txt',    './assets/bg_txt/txt0.png'      );
 
-  console.log(g.mediaStorage.get('aim', g.world.length))
 
   g.addCursorGameObject(
     new e.Sprite(
-      g.mediaStorage.get('aim', g.world.length),
-      100, 100, 300, 0, 4, true, false
+      g.mediaStorage.get('aim'),
+      100, 100, 180, 0, 4, true, false
     )
   );
   g.cursor.rotationByCursor = true;
@@ -27,26 +27,35 @@ window.onload = function() {
       function(vector, state, controller) {},
       g.state,
       new e.Sprite(
-        g.mediaStorage.get('filter', g.world.length),
+        g.mediaStorage.get('filter', g.world[0].length),
         2000, 2000, 300, 0, 0, true, true
       )
     )
   );
+  
 
   /* Hero */
   g.addObject(
     new e.GameObject(
       g.screen.center.x, 
       g.screen.center.y,
-      function(vector, state, controller) {
+      function(vector, state, controller, innerState) {
         controller.accelerate();
         controller.slip();
         vector.translateVec(controller.velocity);
+        // turn right
+        if ((g.cursor.angle < (-Math.PI/2) && g.cursor.angle > (-Math.PI))
+          || (g.cursor.angle < (Math.PI)  && g.cursor.angle > (Math.PI/2)))
+        {
+          innerState.currentSprite = 1
+        } else {
+          innerState.currentSprite = 0
+        }
       },
       g.state,
       new e.Sprite(
-        g.mediaStorage.get('hero', g.world.length),
-        120, 120, 400, 0, 5, true, false
+        g.mediaStorage.get('hero1', g.world[0].length),
+        120, 120, 200, 0, 3, true, false
       ),
       new e.Controller(
         new a.Vector(0, 0),
@@ -58,6 +67,16 @@ window.onload = function() {
       )
     )
   );
+
+
+  g.world[0][0].sprites.push(
+    new e.Sprite(
+      g.mediaStorage.get('hero2', g.world[0].length),
+      120, 120, 200, 0, 3, true, false
+    )
+  );
+
+  
 
 
   g.setCamera(
@@ -77,7 +96,7 @@ window.onload = function() {
         1,
         10,
         1,
-        g.world[0].vector
+        g.world[0][0].vector
       )
     )
   );
@@ -94,7 +113,7 @@ window.onload = function() {
           },
           g.state,
           new e.Sprite(
-            g.mediaStorage.get('txt', g.world.length),
+            g.mediaStorage.get('txt', g.world[0].length),
             100, 100, 300, 0, 0, true, false
           )
         )
@@ -121,8 +140,8 @@ window.onload = function() {
 
   for (var i = 0; i < collider.objects.length; i++) {
     console.log(collider.objects[i].min.x, collider.objects[i].min.y,
-      collider.objects[i].max.x, collider.objects[i].max.y,
-      collider.objects[i].collided);
+    collider.objects[i].max.x, collider.objects[i].max.y,
+    collider.objects[i].collided);
   }
       
 }
