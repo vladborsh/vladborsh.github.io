@@ -1,0 +1,39 @@
+baseURL = 'http://vladborsh.github.io'
+languageCode = 'en-us'
+title = 'Bigman blogpost'
+theme = "m10c"
+author = "Vlad Borsh"
+description = "Short description of the author"
+# avatar: Path of file containing the author avatar image
+# menu_item_separator: Separator between each menu item. HTML allowed (default: " - ")
+# favicon
+
+[menu]
+  [[menu.main]]
+    identifier = "home"
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 2
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 3
+
+[params]
+  author = "John Doe"
+  description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+  menu_item_separator = " - "
+  [[params.social]]
+    icon = "github"
+    name = "Github"
+    url = "https://github.com/gohugoio"
+  [[params.social]]
+    icon = "twitter"
+    name = "Twitter"
+    url = "https://twitter.com/gohugoio"
